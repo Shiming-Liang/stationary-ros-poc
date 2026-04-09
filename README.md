@@ -21,12 +21,12 @@ docker build -t stationary-ros-poc .
 ### Trigger the issue
 
 ```bash
-docker run --network host -it stationary-ros-poc ros2 launch my_stationary my_stationary.launch.py
+docker run --network host -it stationary-ros-poc bash -ic "ros2 launch my_stationary my_stationary.launch.py"
 ```
 
 ### Expected output
 
 ```
-[FATAL] [<timestamp>] [<node>]: Failed to create TrossenArmDriver: \
+[FATAL] [<timestamp>] [trossen_arm_hardware]: Failed to create TrossenArmDriver: \
   logger with name 'trossen_arm_driver' already exists
 ```
