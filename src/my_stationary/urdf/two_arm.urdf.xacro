@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="two_arm"
+  xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="ip_address_leader"           default="192.168.1.2"/>
+  <xacro:arg name="ip_address_follower"         default="192.168.1.5"/>
+  <xacro:arg name="ros2_control_hardware_type"  default="real"/>
+
+  <xacro:include filename="$(find trossen_arm_description)/urdf/macros/_common.urdf.xacro" />
+  <xacro:include filename="$(find trossen_arm_description)/urdf/macros/_wxai.urdf.xacro" />
+
+  <xacro:trossen_black/>
+
+  <!-- Root link -->
+  <link name="world"/>
+
+  <!-- Leader arm (right-handed controller, 192.168.1.2) -->
+  <joint name="leader_mount_joint" type="fixed">
+    <origin xyz="0 -0.25 0" rpy="0 0 ${pi/2}"/>
+    <parent link="world"/>
+    <child link="leader_base_link"/>
+  </joint>
+
+  <xacro:wxai
+    variant="leader"
+    arm_side="right"
+    prefix="leader_"
+    ip_address="$(arg ip_address_leader)"
+    ros2_control_hardware_type="$(arg ros2_control_hardware_type)"/>
+
+  <!-- Follower arm (robot arm, 192.168.1.5) -->
+  <joint name="follower_mount_joint" type="fixed">
+    <origin xyz="0 0.25 0" rpy="0 0 ${-pi/2}"/>
+    <parent link="world"/>
+    <child link="follower_base_link"/>
+  </joint>
+
+  <xacro:wxai
+    variant="follower"
+    prefix="follower_"
+    ip_address="$(arg ip_address_follower)"
+    ros2_control_hardware_type="$(arg ros2_control_hardware_type)"/>
+
+</robot>
