@@ -4,7 +4,7 @@ project(my_stationary)
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY launch config urdf
+  DIRECTORY launch config
   DESTINATION share/${PROJECT_NAME}
 )
 
