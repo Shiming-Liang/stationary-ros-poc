@@ -8,8 +8,8 @@ import os
 
 
 def generate_launch_description():
-    description_share = get_package_share_directory("trossen_arm_description")
-    urdf_file = os.path.join(description_share, "urdf", "stationary_ai.urdf.xacro")
+    description_share = get_package_share_directory("my_stationary")
+    urdf_file = os.path.join(description_share, "urdf", "two_arm.urdf.xacro")
     controller_config = os.path.join(
         get_package_share_directory("my_stationary"), "config", "controllers.yaml"
     )

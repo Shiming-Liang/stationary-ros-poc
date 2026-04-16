@@ -1,8 +1,9 @@
 FROM ros:jazzy-ros-base
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-RUN apt update && apt install -y git
+RUN apt update && apt install -y git ros-jazzy-rmw-cyclonedds-cpp
 
 # Build Trossen dependencies
 RUN apt update && \

@@ -1,3 +1,58 @@
 controller_manager:
   ros__parameters:
     update_rate: 250
+
+    leader_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    leader_gripper_controller:
+      type: parallel_gripper_action_controller/GripperActionController
+    follower_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    follower_gripper_controller:
+      type: parallel_gripper_action_controller/GripperActionController
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+leader_arm_controller:
+  ros__parameters:
+    joints:
+      - leader_joint_0
+      - leader_joint_1
+      - leader_joint_2
+      - leader_joint_3
+      - leader_joint_4
+      - leader_joint_5
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+    state_publish_rate: 50.0
+    allow_nonzero_velocity_at_trajectory_end: false
+    constraints:
+      stopped_velocity_tolerance: 0.02
+      goal_time: 2.0
+
+leader_gripper_controller:
+  ros__parameters:
+    joint: leader_left_carriage_joint
+    allow_stalling: true
+
+follower_arm_controller:
+  ros__parameters:
+    joints:
+      - follower_joint_0
+      - follower_joint_1
+      - follower_joint_2
+      - follower_joint_3
+      - follower_joint_4
+      - follower_joint_5
+    command_interfaces: [position]
+    state_interfaces: [position, velocity]
+    state_publish_rate: 50.0
+    allow_nonzero_velocity_at_trajectory_end: false
+    constraints:
+      stopped_velocity_tolerance: 0.02
+      goal_time: 2.0
+
+follower_gripper_controller:
+  ros__parameters:
+    joint: follower_left_carriage_joint
+    allow_stalling: true
