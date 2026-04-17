@@ -3,6 +3,12 @@ FROM ros:jazzy-ros-base
 ENV DEBIAN_FRONTEND=noninteractive
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
+# Configure CycloneDDS to use the loopback interface so nodes within the
+# container can discover each other (Docker blocks multicast by default).
+RUN echo '<CycloneDDS><Domain><General><NetworkInterfaceAddress>lo</NetworkInterfaceAddress></General></Domain></CycloneDDS>' \
+    > /cyclonedds.xml
+ENV CYCLONEDDS_URI=file:///cyclonedds.xml
+
 RUN apt update && apt install -y git ros-jazzy-rmw-cyclonedds-cpp
 
 # Build Trossen dependencies
